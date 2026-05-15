@@ -1,0 +1,40 @@
+# ActTrace — standalone stack, fully isolated from FinanceData2:
+# its own image, its own volume, its own ports (8080 API / 8002 MCP).
+#
+# This compose file does NOT include Caddy. When you choose to go live, add
+# the site block from caddy-acttrace.snippet to the shared Caddyfile yourself.
+# Nothing here touches the FinanceData2 containers, volumes, or network.
+
+services:
+  acttrace-api:
+    build: .
+    image: acttrace:latest
+    container_name: acttrace-api
+    restart: unless-stopped
+    environment:
+      ACTTRACE_DB_PATH: /data/acttrace.sqlite3
+      ACTTRACE_API_KEY_AUTH: "1"
+    volumes:
+      # rw is required — the backend uses SQLite WAL mode; a :ro mount
+      # silently yields an empty database.
+      - acttrace-data:/data
+    ports:
+      - "8080:8080"
+    command: uvicorn backend.app:app --host 0.0.0.0 --port 8080
+
+  acttrace-mcp:
+    image: acttrace:latest
+    container_name: acttrace-mcp
+    restart: unless-stopped
+    depends_on:
+      - acttrace-api
+    environment:
+      ACTTRACE_DB_PATH: /data/acttrace.sqlite3
+    volumes:
+      - acttrace-data:/data
+    ports:
+      - "8002:8002"
+    command: python -m backend.mcp_server --sse --port 8002
+
+volumes:
+  acttrace-data:

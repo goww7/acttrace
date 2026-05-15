@@ -1,0 +1,22 @@
+# ─────────────────────────────────────────────────────────────────────────
+# ActTrace — Caddy site block.
+#
+# Append this to the shared Caddyfile ONLY when you decide to go live.
+# It adds new site blocks and does not alter any existing FinanceData2 /
+# Halal Terminal / Sante block. Replace the placeholder domain first.
+# ─────────────────────────────────────────────────────────────────────────
+
+acttrace.example.com {
+	reverse_proxy localhost:8080
+	header {
+		Strict-Transport-Security "max-age=31536000;"
+		X-Content-Type-Options "nosniff"
+		Referrer-Policy "strict-origin-when-cross-origin"
+		-Server
+	}
+}
+
+# Optional — MCP SSE endpoint for the agent integration.
+mcp.acttrace.example.com {
+	reverse_proxy localhost:8002
+}
