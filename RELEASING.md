@@ -35,8 +35,11 @@ Once it is on GitHub it installs with:
 /plugin install acttrace@acttrace
 ```
 
-The plugin's MCP server runs `uvx acttrace-mcp`, so step 1 (PyPI) must be done
-for the plugin's MCP tools to work.
+The plugin's MCP server installs straight from this Git repo
+(`uvx --from git+https://github.com/goww7/acttrace acttrace-mcp`), so the plugin
+works as soon as the repo is on GitHub — it does not wait on the PyPI step.
+Once `acttrace-mcp` is on PyPI you may switch `.mcp.json` to the shorter
+`uvx acttrace-mcp`.
 
 ## Version bumps
 

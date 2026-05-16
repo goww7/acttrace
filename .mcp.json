@@ -2,7 +2,7 @@
   "mcpServers": {
     "acttrace": {
       "command": "uvx",
-      "args": ["acttrace-mcp"]
+      "args": ["--from", "git+https://github.com/goww7/acttrace", "acttrace-mcp"]
     }
   }
 }
