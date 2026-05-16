@@ -8,7 +8,7 @@ Consumed by ``ActTraceService.generate_notice`` (see ``acttrace_service``).
 """
 from __future__ import annotations
 
-from backend.services.acttrace_constants import DISCLAIMER
+from acttrace.services.acttrace_constants import DISCLAIMER
 
 # --- Supported value sets (mirror the BLUEPRINT contract) ------------------
 NOTICE_TYPES = (

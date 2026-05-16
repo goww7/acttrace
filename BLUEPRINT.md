@@ -33,25 +33,25 @@ Pattern copied from FinanceData2: no base class, per-call `closing(_connect())`,
 ## File ownership — STRICT
 
 CONTRACT files (orchestrator-written, agents must NOT modify):
-`backend/config.py`, `backend/dependencies.py`, `backend/schemas/acttrace.py`,
-`backend/repositories/acttrace_repository.py`,
-`backend/services/acttrace_constants.py`, `backend/services/acttrace_service.py`,
-`backend/routers/acttrace.py`.
+`acttrace/config.py`, `acttrace/dependencies.py`, `acttrace/schemas/acttrace.py`,
+`acttrace/repositories/acttrace_repository.py`,
+`acttrace/services/acttrace_constants.py`, `acttrace/services/acttrace_service.py`,
+`acttrace/routers/acttrace.py`.
 
-FOUNDATION agent writes ONLY: `backend/middleware/api_key_auth.py`,
-`backend/services/api_key_service.py`, `backend/repositories/api_key_repository.py`,
-`backend/routers/keys.py`, `backend/app.py`, `requirements.txt`, `pyproject.toml`.
+FOUNDATION agent writes ONLY: `acttrace/middleware/api_key_auth.py`,
+`acttrace/services/api_key_service.py`, `acttrace/repositories/api_key_repository.py`,
+`acttrace/routers/keys.py`, `acttrace/app.py`, `requirements.txt`, `pyproject.toml`.
 
 CLASSIFICATION agent writes ONLY:
-`backend/services/acttrace_classification_service.py`,
+`acttrace/services/acttrace_classification_service.py`,
 `tests/test_classification.py`, `tests/test_conflict_guard.py`.
 
-NOTICE agent writes ONLY: `backend/services/acttrace_notice_service.py`,
+NOTICE agent writes ONLY: `acttrace/services/acttrace_notice_service.py`,
 `tests/test_notice_service.py`.
 
-MCP agent writes ONLY: `backend/mcp_server/server.py`,
-`backend/mcp_server/__main__.py`, `backend/mcp_server/context.py`,
-`backend/mcp_server/tools/acttrace.py`, `skill/acttrace/SKILL.md`,
+MCP agent writes ONLY: `acttrace/mcp_server/server.py`,
+`acttrace/mcp_server/__main__.py`, `acttrace/mcp_server/context.py`,
+`acttrace/mcp_server/tools/acttrace.py`, `skill/acttrace/SKILL.md`,
 `skill/acttrace/README.md`.
 
 No agent creates/edits `__init__.py` (they exist) or files outside its list.
@@ -59,7 +59,7 @@ No agent creates/edits `__init__.py` (they exist) or files outside its list.
 
 ## Classification engine contract
 
-Module `backend/services/acttrace_classification_service.py` exposes:
+Module `acttrace/services/acttrace_classification_service.py` exposes:
 
 ```python
 def classify(facts: dict) -> dict
@@ -77,7 +77,7 @@ Returns a dict with keys: `risk_category` (str), `confidence` (str),
 `source_refs` (list[dict]), `rule_version` (str).
 
 Import keyword lists, obligations, source refs and string constants from
-`backend.services.acttrace_constants` — **do not redefine them**.
+`acttrace.services.acttrace_constants` — **do not redefine them**.
 
 ### Decision precedence — first match wins
 
@@ -124,7 +124,7 @@ several financial keywords.
 
 ## Notice generator contract
 
-Module `backend/services/acttrace_notice_service.py` exposes:
+Module `acttrace/services/acttrace_notice_service.py` exposes:
 
 ```python
 def generate_notice(params: dict) -> dict
@@ -153,14 +153,14 @@ discloses AI; caveats non-empty; tone variation changes the body.
 
 ## Foundation contract (interfaces the orchestrator files depend on)
 
-`backend/repositories/api_key_repository.py` — `ApiKeyRepository(db_path)`,
+`acttrace/repositories/api_key_repository.py` — `ApiKeyRepository(db_path)`,
 tables `acttrace_api_keys`, `acttrace_api_usage_log`. Keys hashed with `bcrypt`.
 Methods: `create_key(plan="free") -> {"api_key": <plaintext>, "key_prefix",
 "plan", "id"}`; `get_by_key(api_key) -> dict | None` (dict has `id`,
 `key_prefix`, `plan`, `is_active` bool, `tokens_used`, `tokens_limit`);
 `increment_token_usage(api_key, tokens)`; `log_usage(**kw)`.
 
-`backend/services/api_key_service.py` — `ApiKeyService(repo)`. Holds
+`acttrace/services/api_key_service.py` — `ApiKeyService(repo)`. Holds
 `TOKEN_COSTS` and `get_token_cost(endpoint, method) -> int`. Token costs:
 `/api/acttrace/diagnostics/free`→0, `/api/acttrace/classify`→15,
 `/api/acttrace/notices`→10, `/api/keys`→0, `/api/health`→0, default→1.
@@ -168,7 +168,7 @@ Methods: `create_key(plan="free") -> {"api_key": <plaintext>, "key_prefix",
 with code string for invalid/deactivated, returns usage dict otherwise; free
 plan hard-blocked over quota (`QUOTA_EXCEEDED`), paid plans allow overage.
 
-`backend/middleware/api_key_auth.py` — `ApiKeyAuthMiddleware(BaseHTTPMiddleware)`.
+`acttrace/middleware/api_key_auth.py` — `ApiKeyAuthMiddleware(BaseHTTPMiddleware)`.
 Exempt paths: `/api/acttrace/diagnostics/free`, `/api/health`, `/api/keys`,
 `/docs`, `/openapi.json`, `/redoc`, `/`. Reads `X-API-Key`; on failure returns
 JSON `{"code","message","detail"}` with 401/403/429. On success sets
@@ -176,12 +176,12 @@ JSON `{"code","message","detail"}` with 401/403/429. On success sets
 Response headers: `X-Request-ID`, `X-Plan`, `X-Tokens-Charged`,
 `X-Tokens-Remaining`, `X-RateLimit-Limit`, `X-RateLimit-Remaining`.
 
-`backend/routers/keys.py` — `POST /api/keys/generate` (exempt) issuing a free
+`acttrace/routers/keys.py` — `POST /api/keys/generate` (exempt) issuing a free
 key via `ApiKeyRepository.create_key`. `GET /api/health` lives here too.
 
-`backend/app.py` — `create_app()` FastAPI factory: registers
-`ApiKeyAuthMiddleware`, includes `backend.routers.acttrace.router`,
-`backend.routers.keys.router`. Title "ActTrace API".
+`acttrace/app.py` — `create_app()` FastAPI factory: registers
+`ApiKeyAuthMiddleware`, includes `acttrace.routers.acttrace.router`,
+`acttrace.routers.keys.router`. Title "ActTrace API".
 
 `requirements.txt`: fastapi, uvicorn, pydantic>=2, bcrypt, httpx, pytest, mcp.
 
@@ -194,7 +194,7 @@ key via `ApiKeyRepository.create_key`. `GET /api/health` lives here too.
 
 ## MCP contract
 
-`backend/mcp_server/` — FastMCP + SSE, mirroring FinanceData2's pattern. Tools:
+`acttrace/mcp_server/` — FastMCP + SSE, mirroring FinanceData2's pattern. Tools:
 `acttrace.classify` and `acttrace.generate_transparency_notice`. Each
 authenticates via `X-API-Key` (reuse `ApiKeyRepository`), calls
 `ActTraceService`, returns structured JSON, creates audit events (the service

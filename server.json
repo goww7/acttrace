@@ -1,0 +1,35 @@
+{
+  "$schema": "https://static.modelcontextprotocol.io/schemas/2025-12-11/server.schema.json",
+  "name": "io.github.goww7/acttrace",
+  "title": "ActTrace",
+  "description": "Classify AI systems under the EU AI Act and generate Article 50 transparency notices.",
+  "version": "0.1.0",
+  "websiteUrl": "https://github.com/goww7/acttrace",
+  "repository": {
+    "url": "https://github.com/goww7/acttrace",
+    "source": "github"
+  },
+  "packages": [
+    {
+      "registryType": "pypi",
+      "registryBaseUrl": "https://pypi.org",
+      "identifier": "acttrace-mcp",
+      "version": "0.1.0",
+      "runtimeHint": "uvx",
+      "transport": { "type": "stdio" }
+    }
+  ],
+  "_meta": {
+    "io.modelcontextprotocol.registry/publisher-provided": {
+      "categories": ["developer-tools", "compliance"],
+      "tags": [
+        "eu-ai-act", "ai-act", "compliance", "ai-governance",
+        "article-50", "transparency", "risk-classification"
+      ],
+      "publisher": {
+        "name": "goww7",
+        "url": "https://github.com/goww7/acttrace"
+      }
+    }
+  }
+}

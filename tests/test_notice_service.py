@@ -8,7 +8,7 @@ from __future__ import annotations
 
 import pytest
 
-from backend.services.acttrace_notice_service import (
+from acttrace.services.acttrace_notice_service import (
     NOTICE_TYPES,
     generate_notice,
 )

@@ -20,7 +20,7 @@ services:
       - acttrace-data:/data
     ports:
       - "8080:8080"
-    command: uvicorn backend.app:app --host 0.0.0.0 --port 8080
+    command: uvicorn acttrace.app:app --host 0.0.0.0 --port 8080
 
   acttrace-mcp:
     image: acttrace:latest
@@ -34,7 +34,7 @@ services:
       - acttrace-data:/data
     ports:
       - "8002:8002"
-    command: python -m backend.mcp_server --sse --port 8002
+    command: python -m acttrace.mcp_server --sse --port 8002
 
 volumes:
   acttrace-data:

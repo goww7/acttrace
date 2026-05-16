@@ -24,7 +24,7 @@ from fastapi import Request
 from fastapi.responses import JSONResponse
 from starlette.middleware.base import BaseHTTPMiddleware
 
-from backend.services.api_key_service import ApiKeyService
+from acttrace.services.api_key_service import ApiKeyService
 
 logger = logging.getLogger("acttrace")
 

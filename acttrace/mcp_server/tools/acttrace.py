@@ -23,8 +23,8 @@ from typing import Any, Optional
 
 from mcp.server.fastmcp import FastMCP
 
-from backend.dependencies import get_acttrace_service
-from backend.mcp_server.context import get_owner_key_prefix
+from acttrace.dependencies import get_acttrace_service
+from acttrace.mcp_server.context import get_owner_key_prefix
 
 
 def _ok(tool: str, data: Any) -> str:

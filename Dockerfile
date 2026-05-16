@@ -7,11 +7,11 @@ COPY requirements.txt ./
 RUN pip install --no-cache-dir -r requirements.txt
 
 COPY pyproject.toml ./
-COPY backend/ ./backend/
+COPY acttrace/ ./acttrace/
 
 ENV ACTTRACE_DB_PATH=/data/acttrace.sqlite3 \
     ACTTRACE_API_KEY_AUTH=1 \
     PYTHONUNBUFFERED=1
 
 EXPOSE 8080
-CMD ["uvicorn", "backend.app:app", "--host", "0.0.0.0", "--port", "8080"]
+CMD ["uvicorn", "acttrace.app:app", "--host", "0.0.0.0", "--port", "8080"]

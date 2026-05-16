@@ -1,5 +1,7 @@
 # ActTrace
 
+<!-- mcp-name: io.github.goww7/acttrace -->
+
 A developer-facing **EU AI Act compliance API** for non-financial SaaS and
 technology companies. ActTrace gives an engineering team three things,
 self-serve, over an API or via MCP:
@@ -17,11 +19,26 @@ ActTrace is scoped for **non-financial** companies. Financial-services use
 cases (banking, trading, portfolio/investment advice, credit scoring, …) are
 deliberately classified `out_of_scope_financial_services`.
 
+## Install — Claude Code plugin / MCP server
+
+ActTrace ships as a Claude Code plugin: an `acttrace` skill plus a local MCP
+server. The MCP server runs via `uvx` — a deterministic rules engine, offline,
+no API key.
+
+```
+/plugin marketplace add goww7/acttrace
+/plugin install acttrace@acttrace
+```
+
+Then ask Claude *"Is my chatbot EU AI Act compliant?"* or *"Write an Article 50
+notice for our support assistant."* The MCP server also runs standalone with
+any MCP client: `uvx acttrace-mcp`.
+
 ## Quickstart
 
 ```bash
 python3 -m venv .venv && .venv/bin/pip install -r requirements.txt
-.venv/bin/uvicorn backend.app:app --reload --port 8080
+.venv/bin/uvicorn acttrace.app:app --reload --port 8080
 ```
 
 ```bash
@@ -64,7 +81,7 @@ structured `{"code","message","detail"}` (401/403/429).
 
 ## MCP
 
-`python -m backend.mcp_server --sse --port 8002` exposes two tools —
+`python -m acttrace.mcp_server --sse --port 8002` exposes two tools —
 `acttrace_classify` and `acttrace_generate_transparency_notice` — authenticated
 with the same `X-API-Key`. A Claude Code skill is in `skill/acttrace/`.
 
@@ -87,7 +104,7 @@ placeholder domain). See `BLUEPRINT.md` for the full build contract.
 ## Layout
 
 ```
-backend/
+acttrace/
   app.py config.py dependencies.py
   middleware/   api_key_auth.py
   routers/      acttrace.py  keys.py

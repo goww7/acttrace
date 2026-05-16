@@ -1,8 +1,50 @@
+[build-system]
+requires = ["setuptools>=68", "wheel"]
+build-backend = "setuptools.build_meta"
+
 [project]
-name = "acttrace"
+name = "acttrace-mcp"
 version = "0.1.0"
-description = "Developer-facing EU AI Act compliance API."
+description = "EU AI Act compliance — classify AI systems by risk and generate Article 50 transparency notices. API + MCP server for non-financial SaaS."
+readme = "README.md"
 requires-python = ">=3.11"
+license = { text = "Apache-2.0" }
+authors = [{ name = "goww7" }]
+keywords = [
+  "eu-ai-act", "ai-act", "mcp", "model-context-protocol", "compliance",
+  "ai-governance", "article-50", "transparency", "risk-classification",
+  "claude", "cursor",
+]
+classifiers = [
+  "Development Status :: 4 - Beta",
+  "Intended Audience :: Developers",
+  "License :: OSI Approved :: Apache Software License",
+  "Operating System :: OS Independent",
+  "Programming Language :: Python :: 3.11",
+  "Programming Language :: Python :: 3.12",
+  "Topic :: Software Development :: Quality Assurance",
+  "Topic :: Office/Business",
+]
+dependencies = [
+  "fastapi>=0.110",
+  "uvicorn[standard]>=0.27",
+  "pydantic>=2",
+  "bcrypt>=4",
+  "httpx>=0.27",
+  "mcp>=1.2",
+  "anyio>=4",
+]
+
+[project.urls]
+Homepage = "https://github.com/goww7/acttrace"
+Repository = "https://github.com/goww7/acttrace"
+Issues = "https://github.com/goww7/acttrace/issues"
+
+[project.scripts]
+acttrace-mcp = "acttrace.mcp_server.__main__:main"
+
+[tool.setuptools.packages.find]
+include = ["acttrace*"]
 
 [tool.pytest.ini_options]
 testpaths = ["tests"]

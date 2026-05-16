@@ -3,8 +3,8 @@
 Covers BLUEPRINT acceptance fixtures 1, 2, 3, 4 and 7, plus confidence-value
 checks and structural assertions on the classified result.
 """
-from backend.services.acttrace_classification_service import classify
-from backend.services.acttrace_constants import RULE_VERSION, SOURCE_REFS
+from acttrace.services.acttrace_classification_service import classify
+from acttrace.services.acttrace_constants import RULE_VERSION, SOURCE_REFS
 
 
 # --- Fixture 1: limited_risk_transparency ----------------------------------

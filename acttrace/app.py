@@ -5,18 +5,18 @@ classification + Article 50 transparency-notice generation. It is fully
 isolated from FinanceData2 — its own SQLite file, its own config.
 
 ``create_app()`` wires the auth middleware and routers; a module-level
-``app`` is exposed so ``uvicorn backend.app:app`` works directly.
+``app`` is exposed so ``uvicorn acttrace.app:app`` works directly.
 """
 
 from __future__ import annotations
 
 from fastapi import FastAPI
 
-from backend.config import get_settings
-from backend.dependencies import get_api_key_service
-from backend.middleware.api_key_auth import ApiKeyAuthMiddleware
-from backend.routers import acttrace as acttrace_router
-from backend.routers import keys as keys_router
+from acttrace.config import get_settings
+from acttrace.dependencies import get_api_key_service
+from acttrace.middleware.api_key_auth import ApiKeyAuthMiddleware
+from acttrace.routers import acttrace as acttrace_router
+from acttrace.routers import keys as keys_router
 
 API_DESCRIPTION = """\
 **ActTrace** is a developer-facing EU AI Act compliance API for non-financial

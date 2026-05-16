@@ -1,13 +1,13 @@
-"""Entry point: python -m backend.mcp_server
+"""Entry point: python -m acttrace.mcp_server
 
 Supports two transport modes:
   - stdio (default): for local use with Claude Desktop / Cursor / Claude Code.
   - sse: for remote use behind Docker / a reverse proxy.
 
 Usage:
-  python -m backend.mcp_server              # stdio
-  python -m backend.mcp_server --sse        # SSE on 0.0.0.0:8002
-  python -m backend.mcp_server --sse --port 9000
+  python -m acttrace.mcp_server              # stdio
+  python -m acttrace.mcp_server --sse        # SSE on 0.0.0.0:8002
+  python -m acttrace.mcp_server --sse --port 9000
 
 Port 8002 is deliberate — it must not collide with FinanceData2's MCP
 server on 8001.
@@ -17,7 +17,7 @@ import argparse
 import logging
 import uuid
 
-from backend.mcp_server.server import create_server
+from acttrace.mcp_server.server import create_server
 
 logger = logging.getLogger("acttrace-mcp")
 
@@ -36,8 +36,8 @@ def _run_sse_with_auth(server, host: str, port: int) -> None:
     from starlette.requests import Request
     from starlette.responses import JSONResponse
 
-    from backend.dependencies import get_api_key_repository
-    from backend.mcp_server.context import set_owner_key_prefix
+    from acttrace.dependencies import get_api_key_repository
+    from acttrace.mcp_server.context import set_owner_key_prefix
 
     repo = get_api_key_repository()
     logger.info("ActTrace MCP auth enabled — validating X-API-Key")

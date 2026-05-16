@@ -1,0 +1,20 @@
+{
+  "$schema": "https://anthropic.com/claude-code/marketplace.schema.json",
+  "name": "acttrace",
+  "description": "EU AI Act compliance skill + MCP server for Claude Code.",
+  "owner": {
+    "name": "goww7"
+  },
+  "plugins": [
+    {
+      "name": "acttrace",
+      "description": "Classify an AI feature's risk under the EU AI Act and generate Article 50 transparency notices. Deterministic rules engine, runs locally, for non-financial SaaS and technology products.",
+      "category": "developer-tools",
+      "source": {
+        "source": "url",
+        "url": "https://github.com/goww7/acttrace.git"
+      },
+      "homepage": "https://github.com/goww7/acttrace"
+    }
+  ]
+}

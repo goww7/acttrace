@@ -5,5 +5,7 @@ __pycache__/
 *.sqlite3-wal
 *.sqlite3-shm
 .pytest_cache/
+build/
+dist/
 *.egg-info/
 .DS_Store

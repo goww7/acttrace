@@ -1,0 +1,8 @@
+{
+  "name": "acttrace",
+  "version": "0.1.0",
+  "description": "EU AI Act compliance for Claude Code — classify an AI feature's risk category and generate Article 50 transparency notices. Deterministic, runs locally, for non-financial SaaS.",
+  "author": {
+    "name": "goww7"
+  }
+}

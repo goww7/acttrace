@@ -5,7 +5,7 @@ and individual financial keywords each triggering out-of-scope.
 """
 import pytest
 
-from backend.services.acttrace_classification_service import classify
+from acttrace.services.acttrace_classification_service import classify
 
 
 # --- Fixture 5: portfolio recommender --------------------------------------

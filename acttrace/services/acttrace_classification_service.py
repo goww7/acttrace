@@ -7,7 +7,7 @@ from ``acttrace_constants`` — none are redefined here.
 """
 from __future__ import annotations
 
-from backend.services.acttrace_constants import (
+from acttrace.services.acttrace_constants import (
     CATEGORY_LIMITED_RISK,
     CATEGORY_MINIMAL_RISK,
     CATEGORY_OUT_OF_SCOPE_FS,

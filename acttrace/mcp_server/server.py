@@ -10,7 +10,7 @@ from __future__ import annotations
 
 from mcp.server.fastmcp import FastMCP
 
-from backend.mcp_server.tools import acttrace
+from acttrace.mcp_server.tools import acttrace
 
 
 def create_server(host: str = "0.0.0.0", port: int = 8002) -> FastMCP:

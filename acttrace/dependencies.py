@@ -7,11 +7,11 @@ from __future__ import annotations
 
 from functools import lru_cache
 
-from backend.config import get_settings
-from backend.repositories.acttrace_repository import ActTraceRepository
-from backend.repositories.api_key_repository import ApiKeyRepository
-from backend.services.acttrace_service import ActTraceService
-from backend.services.api_key_service import ApiKeyService
+from acttrace.config import get_settings
+from acttrace.repositories.acttrace_repository import ActTraceRepository
+from acttrace.repositories.api_key_repository import ApiKeyRepository
+from acttrace.services.acttrace_service import ActTraceService
+from acttrace.services.api_key_service import ApiKeyService
 
 
 @lru_cache(maxsize=1)

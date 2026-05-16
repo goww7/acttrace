@@ -8,8 +8,8 @@ from __future__ import annotations
 
 from fastapi import APIRouter, Depends
 
-from backend.dependencies import get_api_key_repository
-from backend.repositories.api_key_repository import ApiKeyRepository
+from acttrace.dependencies import get_api_key_repository
+from acttrace.repositories.api_key_repository import ApiKeyRepository
 
 router = APIRouter(tags=["keys"])
 

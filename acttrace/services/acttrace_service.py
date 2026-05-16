@@ -7,12 +7,12 @@ from __future__ import annotations
 
 from typing import Optional
 
-from backend.repositories.acttrace_repository import ActTraceRepository
-from backend.services import acttrace_constants as C
-from backend.services.acttrace_classification_service import (
+from acttrace.repositories.acttrace_repository import ActTraceRepository
+from acttrace.services import acttrace_constants as C
+from acttrace.services.acttrace_classification_service import (
     classify as run_classification,
 )
-from backend.services.acttrace_notice_service import (
+from acttrace.services.acttrace_notice_service import (
     generate_notice as run_notice,
 )
 

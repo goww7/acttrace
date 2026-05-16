@@ -10,7 +10,7 @@ from __future__ import annotations
 import logging
 from typing import Any, Dict, List, Tuple
 
-from backend.repositories.api_key_repository import ApiKeyRepository
+from acttrace.repositories.api_key_repository import ApiKeyRepository
 
 logger = logging.getLogger("acttrace")
 

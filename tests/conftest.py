@@ -20,7 +20,7 @@ os.environ.setdefault("ACTTRACE_API_KEY_AUTH", "1")
 def client():
     from fastapi.testclient import TestClient
 
-    from backend.app import app
+    from acttrace.app import app
 
     with TestClient(app) as test_client:
         yield test_client

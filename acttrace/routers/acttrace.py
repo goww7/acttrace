@@ -9,8 +9,8 @@ from typing import Optional
 
 from fastapi import APIRouter, Depends, Request
 
-from backend.dependencies import get_acttrace_service
-from backend.schemas.acttrace import (
+from acttrace.dependencies import get_acttrace_service
+from acttrace.schemas.acttrace import (
     ActTraceClassifyRequest,
     ActTraceDiagnosticRequest,
     ActTraceDiagnosticResponse,
@@ -18,7 +18,7 @@ from backend.schemas.acttrace import (
     ActTraceNoticeRead,
     ActTraceRiskAssessmentRead,
 )
-from backend.services.acttrace_service import ActTraceService
+from acttrace.services.acttrace_service import ActTraceService
 
 router = APIRouter(prefix="/api/acttrace", tags=["acttrace"])
 
