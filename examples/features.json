@@ -1,0 +1,27 @@
+[
+  {
+    "name": "support-chatbot",
+    "feature_name": "Customer support chatbot",
+    "description": "Answers customer support questions using an LLM.",
+    "user_facing": true,
+    "model_provider": "OpenAI",
+    "use_case": "chatbot"
+  },
+  {
+    "name": "article-summarizer",
+    "feature_name": "Article summarizer",
+    "description": "Summarises long articles for internal editorial staff.",
+    "user_facing": false,
+    "internal_only": true,
+    "model_provider": "Anthropic",
+    "use_case": "summarization"
+  },
+  {
+    "name": "cv-screener",
+    "feature_name": "CV screening tool",
+    "description": "Screens job applicants and scores CVs for hiring decisions.",
+    "user_facing": false,
+    "model_provider": "internal",
+    "high_risk_domain": true
+  }
+]
